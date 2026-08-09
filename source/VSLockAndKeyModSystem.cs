@@ -1,6 +1,7 @@
 using System.IO;
 using System.Reflection;
 using HarmonyLib;
+using Newtonsoft.Json;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -17,12 +18,54 @@ public class VSLockAndKeyModSystem : ModSystem
     const string HarmonyId = "vslockandkey.islockedforinteract";
     const string ConfigFileName = "vslockandkey.json";
 
+    // Namespaced so this can't collide with another mod's own key in the same
+    // world.Config tree - see PLANNING.md for why this, not a custom packet, is
+    // the right way to get a server-authoritative config value to clients.
+    const string WorldConfigKey = "vslockandkey:config";
+
     public static ICoreAPI? Api { get; private set; }
     public static ModConfig? Config { get; private set; }
 
     Harmony? harmony;
     ICoreServerAPI? sapi;
     ICoreClientAPI? capi;
+
+    /// <summary>
+    /// Runs before Start() on both sides. Server: load from disk (writing defaults
+    /// if missing) and publish into world.Config, which the engine syncs to every
+    /// client as part of the normal join handshake. Client: read that same synced
+    /// value instead of maintaining (and trusting) its own local copy - this is
+    /// the same pattern examples/Thievery's ConfigManager uses, not something
+    /// invented for this mod. Server writes here are guaranteed to complete before
+    /// any client, including the local one in singleplayer, reads world.Config,
+    /// since a world's server side always finishes initializing before a client
+    /// begins actual gameplay against it - true for dedicated MP by construction
+    /// (nothing can connect before the server is up) and equally true for the
+    /// embedded singleplayer server.
+    /// </summary>
+    public override void StartPre(ICoreAPI api)
+    {
+        base.StartPre(api);
+
+        if (api.Side == EnumAppSide.Server)
+        {
+            ModConfig config = api.LoadModConfig<ModConfig>(ConfigFileName);
+            if (config == null)
+            {
+                config = new ModConfig();
+                api.StoreModConfig(config, ConfigFileName);
+                api.Logger.Notification($"[VSLockAndKey] No config found, wrote defaults to {ConfigFileName}.");
+            }
+
+            Config = config;
+            api.World.Config.SetString(WorldConfigKey, JsonConvert.SerializeObject(config));
+        }
+        else
+        {
+            string json = api.World.Config.GetString(WorldConfigKey);
+            Config = string.IsNullOrEmpty(json) ? new ModConfig() : JsonConvert.DeserializeObject<ModConfig>(json);
+        }
+    }
 
     public override void Start(ICoreAPI api)
     {
@@ -54,8 +97,6 @@ public class VSLockAndKeyModSystem : ModSystem
         base.StartServerSide(api);
         sapi = api;
 
-        LoadConfig(api);
-
         harmony = new Harmony(HarmonyId);
         harmony.PatchAll(Assembly.GetExecutingAssembly());
 
@@ -68,19 +109,6 @@ public class VSLockAndKeyModSystem : ModSystem
     {
         harmony?.UnpatchAll(HarmonyId);
         base.Dispose();
-    }
-
-    void LoadConfig(ICoreServerAPI api)
-    {
-        ModConfig config = api.LoadModConfig<ModConfig>(ConfigFileName);
-        if (config == null)
-        {
-            config = new ModConfig();
-            api.StoreModConfig(config, ConfigFileName);
-            api.Logger.Notification($"[VSLockAndKey] No config found, wrote defaults to {ConfigFileName}.");
-        }
-
-        Config = config;
     }
 
     void OnBindKeyPacket(IServerPlayer fromPlayer, BindKeyPacket packet)

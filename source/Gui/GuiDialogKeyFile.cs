@@ -61,7 +61,7 @@ public class GuiDialogKeyFile : GuiDialogGeneric
         if (player == null) return;
 
         List<string> values = new() { "player:" + player.PlayerUID };
-        List<string> names = new() { Lang.Get("vslockandkey:keyfile-self", player.PlayerName) };
+        List<string> names = new() { player.PlayerName };
 
         bool requireOwnerOrOp = VSLockAndKeyModSystem.Config?.GroupFilingRequiresOwnerOrOp ?? true;
 

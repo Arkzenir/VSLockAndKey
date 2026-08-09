@@ -17,4 +17,10 @@ public class ModConfig
     public bool GroupFilingRequiresOwnerOrOp = true;
 
     public string AdminBypassPrivilege = "commandplayer";
+
+    /// <summary>
+    /// If false, keys never show their "Bound to: X" / "Not yet filed" status line
+    /// in their tooltip - lets a server hide who/what a key is filed to at a glance.
+    /// </summary>
+    public bool ShowKeyBindingInfo = true;
 }

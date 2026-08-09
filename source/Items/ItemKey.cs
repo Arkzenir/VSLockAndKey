@@ -41,17 +41,26 @@ public class ItemKey : Item
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        string? boundName = inSlot.Itemstack!.Attributes.GetString(KeyAccessUtil.BoundNameAttr, null);
-        if (boundName != null)
+        var config = VSLockAndKeyModSystem.Config;
+
+        // Config is populated on both sides via StartPre (server loads from disk,
+        // client reads the copy the server publishes into world.Config), so this
+        // should always reflect the server's real setting. The ?? true is only a
+        // safety net for the edge case of this running before StartPre completes,
+        // not the normal path.
+        if (config?.ShowKeyBindingInfo ?? true)
         {
-            dsc.AppendLine(Lang.Get("vslockandkey:key-boundto", boundName));
-        }
-        else
-        {
-            dsc.AppendLine(Lang.Get("vslockandkey:key-unbound"));
+            string? boundName = inSlot.Itemstack!.Attributes.GetString(KeyAccessUtil.BoundNameAttr, null);
+            if (boundName != null)
+            {
+                dsc.AppendLine(Lang.Get("vslockandkey:key-boundto", boundName));
+            }
+            else
+            {
+                dsc.AppendLine(Lang.Get("vslockandkey:key-unbound"));
+            }
         }
 
-        var config = VSLockAndKeyModSystem.Config;
         if (config != null && config.LimitUnauthorisedUse)
         {
             int durability = inSlot.Itemstack.Attributes.GetInt(KeyAccessUtil.DurabilityAttr, config.KeyDurability);
