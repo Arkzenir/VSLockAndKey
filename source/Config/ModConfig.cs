@@ -12,7 +12,7 @@ public class ModConfig
 
     public bool LimitUnauthorisedUse = true;
 
-    public int KeyDurability = 50;
+    public int KeyDurability = 3;
 
     public bool GroupFilingRequiresOwnerOrOp = true;
 

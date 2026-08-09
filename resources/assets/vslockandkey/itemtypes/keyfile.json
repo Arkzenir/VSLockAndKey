@@ -10,6 +10,7 @@
     "*": { "metal": { "base": "game:block/metal/ingot/{metal}" } }
   },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
+  "storageFlags": 257,
   "durabilitybytype": {
     "*-tinbronze": 100,
     "*-bismuthbronze": 100,

@@ -14,13 +14,13 @@
     { "name": "Keyring" }
   ],
   "attributesByType": {
-    "*-rope": { "keyringSlots": 4 },
-    "*-tinbronze": { "keyringSlots": 8 },
-    "*-bismuthbronze": { "keyringSlots": 8 },
-    "*-blackbronze": { "keyringSlots": 8 },
-    "*-iron": { "keyringSlots": 12 },
-    "*-meteoriciron": { "keyringSlots": 16 },
-    "*-steel": { "keyringSlots": 20 }
+    "*-rope": { "keyringSlots": 2 },
+    "*-tinbronze": { "keyringSlots": 3 },
+    "*-bismuthbronze": { "keyringSlots": 3 },
+    "*-blackbronze": { "keyringSlots": 3 },
+    "*-iron": { "keyringSlots": 4 },
+    "*-meteoriciron": { "keyringSlots": 5 },
+    "*-steel": { "keyringSlots": 6 }
   },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
   "guiTransform": {
