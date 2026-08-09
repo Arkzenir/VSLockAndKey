@@ -23,8 +23,10 @@ member of the owning group.
   combination works regardless of metal — a bronze file only needs to be bronze
   tier or better to file a bronze key, and can file a steel key too, as long as the
   file's own tier is high enough.
-- **Keyrings.** A holdable container that accepts only keys. Keys inside a keyring
-  you're carrying work exactly as if they were loose in your inventory. Capacity
+- **Keyrings.** A holdable container that accepts only keys — right-click it (with
+  nothing targeted) to open its own inventory screen and manage its contents. Keys
+  inside a keyring you're carrying anywhere in your inventory work exactly as if
+  they were loose, whether or not the keyring's screen is currently open. Capacity
   scales with the keyring's material.
 - **Admin bypass and per-lock exemptions**, configurable — see below.
 - **Metal variants matching lock materials**: bronze (any of the three real alloys),
@@ -39,9 +41,9 @@ member of the owning group.
    the player or group the lock belongs to: hold the key in your main hand, a
    sufficient-tier key file in your offhand, right-click in the air, pick a target
    from the dropdown, confirm.
-3. **Carry the filed key** (loose in inventory, or inside a keyring you're carrying)
-   whenever you want to open that lock. Without it, even the lock's owner is turned
-   away.
+3. **Carry the filed key** (loose in inventory, or inside a keyring you're carrying
+   — right-click the keyring to open it and drop keys in) whenever you want to open
+   that lock. Without it, even the lock's owner is turned away.
 4. If `LimitUnauthorisedUse` is on, a key used by someone other than the lock's
    actual owner/group member loses one use each time; at zero it breaks (with the
    normal item-break sound and particles). Used by the rightful owner/group member,
@@ -78,10 +80,16 @@ default only applies the first time; edit the file directly to change it later).
 
 ## Status
 
-Actively in development. Gameplay logic, recipes, and config are implemented and
-build cleanly; **models and textures for keys/files/keyrings/key molds are
-placeholders** (correctly named, no art yet) pending replacement. Not expected to be
-compatible with other mods that alter vanilla locking if both are installed together.
+Actively in development, and under live in-game testing. Gameplay logic, recipes,
+and config are implemented and build cleanly; **models and textures for
+keys/files/keyrings/key molds are placeholders** (correctly named, no art yet)
+pending replacement. Not expected to be compatible with other mods that alter
+vanilla locking if both are installed together. The keyring's own inventory
+dialog is newly rebuilt (right-click to open, backed by vanilla's own
+`InventoryGeneric`/container-slot networking rather than the equip-slot-based
+`IHeldBag` system that turned out not to work for a plain carried item) and hasn't
+completed a full in-game pass yet — see `PLANNING.md` section 11 for the story on
+why it changed.
 
 See `PLANNING.md` for the full design brief, implementation notes, and known open
 items.
@@ -111,7 +119,7 @@ the mod portal.
 
 | Path | Contents |
 |---|---|
-| `source/` | C# source — config, Harmony patch, items, keyring behavior, filing GUI/networking |
+| `source/` | C# source — config, Harmony patch, items, keyring inventory GUI/networking, filing GUI/networking |
 | `resources/assets/vslockandkey/` | Block/item types, recipes, lang, placeholder shapes |
 | `Directory.Build.props` | Mod identity - name, id, version, description, side, authors |
 | `Common.Build.targets` | Shared build logic |
