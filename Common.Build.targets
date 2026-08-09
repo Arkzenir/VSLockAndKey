@@ -65,9 +65,7 @@
   "description": "$(Description)",
   "authors": [ @(ModInfoAuthors->'&quot;%(Identity)&quot;', ', ') ],
   "dependencies": { @(Dependencies->'&quot;%(Identity)&quot;: &quot;%(Version)&quot;', ', ') },
-  "side": "$(Side)",
-  "requiredOnClient": $(RequiredOnClient),
-  "requiredOnServer": $(RequiredOnServer)
+  "side": "$(Side)"
 }</_ModInfoContent>
     </PropertyGroup>
     <MakeDir Directories="$(OutputPath)" />

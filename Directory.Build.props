@@ -11,7 +11,7 @@
     <ModType>code</ModType>
     <ModVersion>1.0.0</ModVersion>
     <ModId>vslockandkey</ModId>
-    <Description>Locked blocks require posessing a key</Description>
+    <Description>Locked blocks require posessing a key. Even for the owner.</Description>
     <Side>universal</Side>
   </PropertyGroup>
 
