@@ -24,11 +24,18 @@ public class GuiDialogKeyring : GuiDialogGeneric
         int cols = Math.Min(inventory.Count, 6);
         int rows = (int)Math.Ceiling(inventory.Count / (float)cols);
 
+        // AddItemSlotGrid always draws each slot at its fixed, unscaled pixel size
+        // (GuiElementPassiveItemSlot.unscaledSlotSize) regardless of the bounds it's
+        // given - it does not stretch to fill. So slotGridBounds must stay at its
+        // natural size (matching ElementStdBounds.SlotGrid's own math exactly) or
+        // the grid renders smaller than its container and leaves dead space. The
+        // ~30% larger window instead comes from genuinely thicker border padding
+        // around that correctly-sized grid.
         double pad = GuiElementItemSlotGrid.unscaledSlotPadding;
         ElementBounds slotGridBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, pad, pad, cols, rows);
-        ElementBounds insetBounds = slotGridBounds.ForkBoundingParent(6, 6, 6, 6);
+        ElementBounds insetBounds = slotGridBounds.ForkBoundingParent(8, 8, 8, 8);
         ElementBounds dialogBounds = insetBounds
-            .ForkBoundingParent(GuiStyle.ElementToDialogPadding, GuiStyle.ElementToDialogPadding + 20, GuiStyle.ElementToDialogPadding, GuiStyle.ElementToDialogPadding)
+            .ForkBoundingParent(GuiStyle.ElementToDialogPadding * 1.3, GuiStyle.ElementToDialogPadding * 1.3 + 20, GuiStyle.ElementToDialogPadding * 1.3, GuiStyle.ElementToDialogPadding * 1.3)
             .WithAlignment(EnumDialogArea.CenterMiddle);
 
         SingleComposer = capi.Gui

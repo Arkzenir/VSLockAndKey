@@ -25,13 +25,22 @@ public class GuiDialogKeyFile : GuiDialogGeneric
         this.names = names;
         selectedValue = values.Length > 0 ? values[0] : null;
 
-        ElementBounds label = ElementBounds.Fixed(0, 0, 300, 25);
-        ElementBounds dropdown = ElementBounds.Fixed(0, 25, 300, 30);
+        // Widths/heights are the original layout's numbers x1.3 (a deliberate size
+        // increase). Vertical placement, by contrast, is derived rather than
+        // guessed: AddShadedDialogBG(withTitleBar: true) only reserves title-bar
+        // space in the drawn background texture, not in bgBounds' own coordinate
+        // frame, so child elements still start at bgBounds' y=0 unless explicitly
+        // pushed down - hence starting the label at GuiStyle.TitleBarHeight (the
+        // actual reserved title bar height) instead of an eyeballed pixel offset,
+        // then chaining every element below the previous one with GuiStyle's own
+        // standard element gap (HalfPadding) rather than more guessed numbers.
+        ElementBounds label = ElementBounds.Fixed(0, GuiStyle.TitleBarHeight, 390, 33);
+        ElementBounds dropdown = label.BelowCopy(0, GuiStyle.HalfPadding, 0, 0).WithFixedSize(390, 39);
+        ElementBounds confirmButton = dropdown.BelowCopy(0, GuiStyle.HalfPadding * 2, 0, 0).WithFixedSize(156, 39);
         ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
         bgBounds.BothSizing = ElementSizing.FitToChildren;
         ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog
-            .WithAlignment(EnumDialogArea.CenterFixed)
-            .WithFixedAlignmentOffset(0, 0);
+            .WithAlignment(EnumDialogArea.CenterMiddle);
 
         SingleComposer = capi.Gui
             .CreateCompo("vslockandkey-keyfile", dialogBounds)
@@ -40,7 +49,7 @@ public class GuiDialogKeyFile : GuiDialogGeneric
             .BeginChildElements(bgBounds)
                 .AddStaticText(Lang.Get("vslockandkey:keyfile-label"), CairoFont.WhiteDetailText(), label)
                 .AddDropDown(values, names, 0, OnSelectionChanged, dropdown, "targetDropdown")
-                .AddSmallButton(Lang.Get("vslockandkey:common-confirm"), OnConfirmClicked, dropdown.BelowCopy(0, 15, 0, 0).WithFixedSize(120, 30))
+                .AddSmallButton(Lang.Get("vslockandkey:common-confirm"), OnConfirmClicked, confirmButton)
             .EndChildElements()
             .Compose();
     }
