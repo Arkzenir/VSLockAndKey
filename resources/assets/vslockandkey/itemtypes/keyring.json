@@ -10,9 +10,6 @@
     "*-rope": { "material": { "base": "game:item/resource/fiber/flax" } },
     "*": { "material": { "base": "game:block/metal/ingot/{material}" } }
   },
-  "behaviors": [
-    { "name": "Keyring" }
-  ],
   "attributesByType": {
     "*-rope": { "keyringSlots": 2 },
     "*-tinbronze": { "keyringSlots": 3 },

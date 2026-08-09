@@ -1,17 +1,39 @@
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 namespace VSLockAndKey;
 
 /// <summary>
-/// A held container item. The actual bag behavior lives in CollectibleBehaviorKeyring
-/// (registered on this item via JSON "behaviors"); this class only owns the storage
-/// format so KeyAccessUtil can read a keyring's contents directly, without needing an
-/// open inventory, while scanning a player for a matching key.
+/// A held container item. Right-clicking it (open air, no block targeted) opens its
+/// own inventory dialog - see GuiDialogKeyring and VSLockAndKeyModSystem's
+/// OpenKeyringPacket/KeyringContentsPacket handlers for the open flow. This class
+/// owns the storage format (an attribute-tree-backed slot array on the itemstack
+/// itself), which both that flow and KeyAccessUtil's inventory scan read directly.
 /// </summary>
 public class ItemKeyring : Item
 {
     public const string ContentsAttr = "vlkContents";
+
+    public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
+    {
+        if (blockSel == null)
+        {
+            handling = EnumHandHandling.PreventDefault;
+
+            if (byEntity.World.Api.Side == EnumAppSide.Client)
+            {
+                (byEntity.World.Api as ICoreClientAPI)?.Network
+                    .GetChannel(VSLockAndKeyModSystem.NetworkChannelId)
+                    .SendPacket(new OpenKeyringPacket());
+            }
+            return;
+        }
+
+        base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+    }
 
     public static ItemStack?[] GetContents(ItemStack keyringStack, IWorldAccessor? world = null)
     {
