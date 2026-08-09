@@ -1,0 +1,9 @@
+{
+  "ingredientPattern": "R_R,R_R,RRR",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "R": { "type": "item", "code": "game:rope" }
+  },
+  "output": { "type": "item", "code": "vslockandkey:keyring-rope" }
+}

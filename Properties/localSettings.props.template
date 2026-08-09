@@ -1,0 +1,19 @@
+<Project>
+  <!--
+    localSettings.props - machine-specific paths. NOT committed.
+    Copy to Properties/localSettings.props and fill in your own paths.
+
+    GameDirectory priority (first non-empty wins):
+      1. GameDirectory_X_XX below
+      2. VINTAGE_STORY_X_XX environment variable
+      3. VINTAGE_STORY environment variable
+
+    To support another game version:
+      1. Add a GameDirectory_X_XX entry here.
+      2. Copy VSLockAndKey_1.22.5.csproj and update VSVersion + TargetFramework.
+  -->
+  <PropertyGroup>
+    <!-- Vintage Story 1.22.5 -->
+    <GameDirectory_1_22_5>D:\VSLauncher\VSLGameVersions\1.22.5</GameDirectory_1_22_5>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,46 @@
+{
+  "item-key-tinbronze": "Tin Bronze Key",
+  "item-key-bismuthbronze": "Bismuth Bronze Key",
+  "item-key-blackbronze": "Black Bronze Key",
+  "item-key-iron": "Iron Key",
+  "item-key-meteoriciron": "Meteoric Iron Key",
+  "item-key-steel": "Steel Key",
+
+  "item-key-jeweled-tinbronze-amethyst": "Tin Bronze Key, studded with Amethyst",
+  "item-key-jeweled-bismuthbronze-amethyst": "Bismuth Bronze Key, studded with Amethyst",
+  "item-key-jeweled-blackbronze-amethyst": "Black Bronze Key, studded with Amethyst",
+  "item-key-jeweled-iron-amethyst": "Iron Key, studded with Amethyst",
+  "item-key-jeweled-meteoriciron-amethyst": "Meteoric Iron Key, studded with Amethyst",
+  "item-key-jeweled-steel-amethyst": "Steel Key, studded with Amethyst",
+
+  "item-keyfile-tinbronze": "Tin Bronze Key File",
+  "item-keyfile-bismuthbronze": "Bismuth Bronze Key File",
+  "item-keyfile-blackbronze": "Black Bronze Key File",
+  "item-keyfile-iron": "Iron Key File",
+  "item-keyfile-meteoriciron": "Meteoric Iron Key File",
+  "item-keyfile-steel": "Steel Key File",
+
+  "item-keyring-rope": "Rope Keyring",
+  "item-keyring-tinbronze": "Tin Bronze Keyring",
+  "item-keyring-bismuthbronze": "Bismuth Bronze Keyring",
+  "item-keyring-blackbronze": "Black Bronze Keyring",
+  "item-keyring-iron": "Iron Keyring",
+  "item-keyring-meteoriciron": "Meteoric Iron Keyring",
+  "item-keyring-steel": "Steel Keyring",
+
+  "block-keymold-raw-north": "Key Mold (unfired)",
+  "block-keymold-burned-north": "Key Mold",
+
+  "vslockandkey:key-boundto": "Bound to: {0}",
+  "vslockandkey:key-unbound": "Not yet filed to a lock",
+  "vslockandkey:key-durability": "Uses remaining against unauthorised locks: {0}/{1}",
+
+  "vslockandkey:keyfile-title": "File Key",
+  "vslockandkey:keyfile-label": "Bind this key to:",
+  "vslockandkey:keyfile-self": "Myself ({0})",
+  "vslockandkey:common-confirm": "Confirm",
+
+  "ingameerror-vslockandkey-locked": "This is locked, and you don't have the key.",
+
+  "blockhelp-vslockandkey-keyfile": "Hold a key in your main hand and a key file in your offhand to bind the key"
+}

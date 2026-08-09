@@ -1,0 +1,159 @@
+<Project>
+  <!--
+    Common.Build.targets - shared MSBuild logic for every <ModName>_<vsver>.csproj.
+
+    Each .csproj defines, before importing this file:
+      $(VSVersion)       e.g. 1.21 or 1.21.5
+      $(TargetFramework) e.g. net8.0
+      $(GameDirectory)   resolved via localSettings.props or environment vars
+      <Dependencies>     items with Version metadata, written into modinfo.json
+  -->
+
+  <PropertyGroup>
+    <OutputDir>bin/$(Configuration)/$(VSVersion)/Mods</OutputDir>
+    <OutputPath>$(OutputDir)/$(ModId)</OutputPath>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>VSLockAndKey</RootNamespace>
+    <!--
+      VSMajorMinor lets deps/ folders named by major.minor (somedep-1.21/) resolve
+      even when building against a patch version (VSVersion=1.21.5).
+    -->
+    <VSMajorMinor>$([System.Text.RegularExpressions.Regex]::Match($(VSVersion), '^\d+\.\d+').Value)</VSMajorMinor>
+  </PropertyGroup>
+
+  <!-- Game assembly references -->
+  <ItemGroup>
+    <Reference Include="VintagestoryAPI" HintPath="$(GameDirectory)/VintagestoryAPI.dll"     Private="false" />
+    <Reference Include="VintagestoryLib" HintPath="$(GameDirectory)/VintagestoryLib.dll"     Private="false" />
+    <Reference Include="VSSurvivalMod"   HintPath="$(GameDirectory)/Mods/VSSurvivalMod.dll"  Private="false" />
+    <Reference Include="VSEssentials"    HintPath="$(GameDirectory)/Mods/VSEssentials.dll"   Private="false" />
+    <Reference Include="Newtonsoft.Json" HintPath="$(GameDirectory)/Lib/Newtonsoft.Json.dll" Private="false" />
+    <Reference Include="0Harmony"        HintPath="$(GameDirectory)/Lib/0Harmony.dll"        Private="false" />
+    <Reference Include="protobuf-net"    HintPath="$(GameDirectory)/Lib/protobuf-net.dll"    Private="false" />
+  </ItemGroup>
+
+  <!--
+    Dependency DLL resolution, three tiers:
+      1. The game's Mods folder - automatic when the dep is installed with the game.
+      2. deps/{name}-{vsver}/  - vendored fallback committed to this repo, so the
+         mod still builds on a machine without that dep installed.
+      3. external/             - ad-hoc one-off DLLs.
+  -->
+  <ItemGroup>
+    <Reference Include="$(GameDirectory)/Mods/*.dll" Private="false"
+               Condition="Exists('$(GameDirectory)/Mods')" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="$(ProjectDir)/deps/*-$(VSVersion)/*.dll" Private="false"
+               Condition="Exists('$(ProjectDir)/deps')" />
+    <Reference Include="$(ProjectDir)/deps/*-$(VSMajorMinor)/*.dll" Private="false"
+               Condition="Exists('$(ProjectDir)/deps') and '$(VSMajorMinor)' != '$(VSVersion)'" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="$(ExternalLibDir)/**/*.dll" Private="false"
+               Condition="Exists('$(ExternalLibDir)')" />
+  </ItemGroup>
+
+  <!-- Generate modinfo.json from Directory.Build.props -->
+  <Target Name="GenerateModInfo" BeforeTargets="Build">
+    <PropertyGroup>
+      <_ModInfoContent>{
+  "type": "$(ModType)",
+  "name": "$(ModName)",
+  "modid": "$(ModId)",
+  "version": "$(ModVersion)",
+  "description": "$(Description)",
+  "authors": [ @(ModInfoAuthors->'&quot;%(Identity)&quot;', ', ') ],
+  "dependencies": { @(Dependencies->'&quot;%(Identity)&quot;: &quot;%(Version)&quot;', ', ') },
+  "side": "$(Side)",
+  "requiredOnClient": $(RequiredOnClient),
+  "requiredOnServer": $(RequiredOnServer)
+}</_ModInfoContent>
+    </PropertyGroup>
+    <MakeDir Directories="$(OutputPath)" />
+    <WriteLinesToFile File="$(OutputPath)/modinfo.json"
+                      Lines="$(_ModInfoContent)"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" />
+  </Target>
+
+  <!--
+    Symlink resources/assets into the build output so asset edits (JSON, textures,
+    sounds) show up in game without a rebuild. Only C# changes need recompiling.
+  -->
+  <Target Name="LinkAssets" AfterTargets="GenerateModInfo" BeforeTargets="Build">
+    <RemoveDir Directories="$(OutputPath)/assets" />
+    <Exec Condition="'$(OS)' == 'Windows_NT'"
+          Command="mklink /D &quot;$(OutputPath)\assets&quot; &quot;$(AssetsDir)&quot;" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'"
+          Command="ln -sf &quot;$(AssetsDir)&quot; &quot;$(OutputPath)/assets&quot;" />
+  </Target>
+
+  <!-- Optional 32x32 resources/modicon.png is copied to the output root -->
+  <Target Name="CopyModIcon" AfterTargets="LinkAssets" BeforeTargets="Build">
+    <Copy SourceFiles="$(ProjectDir)/resources/modicon.png"
+          DestinationFolder="$(OutputPath)"
+          Condition="Exists('$(ProjectDir)/resources/modicon.png')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!--
+    Files that must never reach the mod portal. Append your own with:
+      <PackageExcludes>$(PackageExcludes);$(AssetsDir)/**/*.aseprite</PackageExcludes>
+  -->
+  <PropertyGroup>
+    <PackageExcludes>
+      $(AssetsDir)/**/.gitkeep;
+      $(AssetsDir)/**/.gitignore;
+      $(AssetsDir)/**/.gitattributes;
+      $(AssetsDir)/**/Thumbs.db;
+      $(AssetsDir)/**/.DS_Store;
+      $(AssetsDir)/**/desktop.ini;
+      $(AssetsDir)/**/*.bak;
+      $(AssetsDir)/**/*.blend;
+      $(AssetsDir)/**/*.blend1;
+      $(AssetsDir)/**/*.xcf;
+      $(AssetsDir)/**/*.psd
+    </PackageExcludes>
+  </PropertyGroup>
+
+  <!--
+    Release only: package Releases/{modid}_{modver}_vs{vsver}.zip
+
+    Files are staged rather than zipping $(OutputPath) directly. That folder's
+    assets/ is a symlink back into the source tree, so archiving it sweeps in
+    every .gitkeep and every empty scaffold directory. Copying named files into
+    a staging folder avoids that, and because MSBuild creates a directory only
+    when a file actually lands in it, empty directories disappear by themselves.
+  -->
+  <Target Name="ZipRelease" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <StageDir>$(ProjectDir)/obj/release-stage/$(VSVersion)/$(ModId)</StageDir>
+      <ReleaseZip>$(ProjectDir)/Releases/$(ModId)_$(ModVersion)_vs$(VSVersion).zip</ReleaseZip>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackAsset  Include="$(AssetsDir)/**/*" Exclude="$(PackageExcludes)" />
+      <PackBinary Include="$(OutputPath)/*.dll" />
+      <PackRoot   Include="$(OutputPath)/modinfo.json" />
+      <PackRoot   Include="$(ProjectDir)/resources/modicon.png"
+                  Condition="Exists('$(ProjectDir)/resources/modicon.png')" />
+    </ItemGroup>
+
+    <RemoveDir Directories="$(StageDir)" />
+    <MakeDir Directories="$(StageDir)" />
+
+    <Copy SourceFiles="@(PackAsset)"
+          DestinationFiles="@(PackAsset->'$(StageDir)/assets/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(PackBinary);@(PackRoot)" DestinationFolder="$(StageDir)" />
+
+    <MakeDir Directories="$(ProjectDir)/Releases" />
+    <Delete Files="$(ReleaseZip)" />
+    <!-- ZipDirectory is built into MSBuild: no powershell or zip binary needed -->
+    <ZipDirectory SourceDirectory="$(StageDir)" DestinationFile="$(ReleaseZip)" />
+    <RemoveDir Directories="$(StageDir)" />
+
+    <Message Importance="high" Text="Packaged $(ReleaseZip) (@(PackAsset->Count()) asset files)" />
+  </Target>
+
+</Project>

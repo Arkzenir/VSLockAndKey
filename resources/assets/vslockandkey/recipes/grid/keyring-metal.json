@@ -1,0 +1,9 @@
+{
+  "ingredientPattern": "P_P,P_P,PPP",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": { "type": "item", "code": "game:plate-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+  },
+  "output": { "type": "item", "code": "vslockandkey:keyring-{metal}" }
+}

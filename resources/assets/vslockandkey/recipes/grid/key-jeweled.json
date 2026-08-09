@@ -1,0 +1,62 @@
+[
+  {
+    "ingredientPattern": "HC,GP",
+    "ingredients": {
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true, "toolDurabilityCost": 5 },
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 5 },
+      "G": { "type": "item", "code": "game:ore-*", "name": "gem", "allowedVariants": ["cinnabar", "lapislazuli", "olivine", "quartz"] },
+      "P": { "type": "item", "code": "vslockandkey:key-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "item", "code": "vslockandkey:key-jeweled-{metal}-{gem}", "quantity": 1 }
+  },
+  {
+    "ingredientPattern": "HC,GP",
+    "ingredients": {
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true, "toolDurabilityCost": 5 },
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 5 },
+      "G": { "type": "item", "code": "game:gem-*-rough", "name": "gem", "allowedVariants": ["diamond", "emerald"] },
+      "P": { "type": "item", "code": "vslockandkey:key-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "item", "code": "vslockandkey:key-jeweled-{metal}-{gem}", "quantity": 1 }
+  },
+  {
+    "ingredientPattern": "HC,GP",
+    "ingredients": {
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true, "toolDurabilityCost": 5 },
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 5 },
+      "G": { "type": "item", "code": "game:nugget-*", "name": "gem", "allowedVariants": ["malachite"], "quantity": 4 },
+      "P": { "type": "item", "code": "vslockandkey:key-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "item", "code": "vslockandkey:key-jeweled-{metal}-{gem}", "quantity": 1 }
+  },
+  {
+    "ingredientPattern": "HC,GP",
+    "ingredients": {
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true, "toolDurabilityCost": 5 },
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 5 },
+      "G": { "type": "item", "code": "game:rosequartz" },
+      "P": { "type": "item", "code": "vslockandkey:key-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "item", "code": "vslockandkey:key-jeweled-{metal}-rosequartz", "quantity": 1 }
+  },
+  {
+    "ingredientPattern": "HC,GP",
+    "ingredients": {
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true, "toolDurabilityCost": 5 },
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 5 },
+      "G": { "type": "item", "code": "game:amethyst" },
+      "P": { "type": "item", "code": "vslockandkey:key-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "item", "code": "vslockandkey:key-jeweled-{metal}-amethyst", "quantity": 1 }
+  }
+]

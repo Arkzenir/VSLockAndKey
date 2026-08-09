@@ -1,0 +1,50 @@
+{
+  "code": "keyring",
+  "class": "ItemKeyring",
+  "maxstacksize": 1,
+  "shape": { "base": "vslockandkey:item/keyring" },
+  "variantgroups": [
+    { "code": "material", "states": ["rope", "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
+  ],
+  "texturesByType": {
+    "*-rope": { "material": { "base": "game:item/resource/fiber/flax" } },
+    "*": { "material": { "base": "game:block/metal/ingot/{material}" } }
+  },
+  "behaviors": [
+    { "name": "Keyring" }
+  ],
+  "attributesByType": {
+    "*-rope": { "keyringSlots": 4 },
+    "*-tinbronze": { "keyringSlots": 8 },
+    "*-bismuthbronze": { "keyringSlots": 8 },
+    "*-blackbronze": { "keyringSlots": 8 },
+    "*-iron": { "keyringSlots": 12 },
+    "*-meteoriciron": { "keyringSlots": 16 },
+    "*-steel": { "keyringSlots": 20 }
+  },
+  "creativeinventory": { "general": ["*"], "items": ["*"] },
+  "guiTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 48, "y": 0, "z": -41 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 4
+  },
+  "groundTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 90, "y": 0, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 3
+  },
+  "fpHandTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 0, "y": 0, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 1
+  },
+  "tpHandTransform": {
+    "translation": { "x": -0.7, "y": -0.3, "z": -0.6 },
+    "rotation": { "x": 0, "y": 85, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 0.8
+  }
+}
