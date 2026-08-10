@@ -19,10 +19,10 @@ member of the owning group.
   owner/group member — legitimate use never wears a key down.
 - **Key Files, for binding keys to a target.** Hold a key in your main hand and a key
   file of equal-or-higher metal tier in your offhand to open a binding dialog, where
-  you pick yourself or one of your groups as the key's target. Any key/file
-  combination works regardless of metal — a bronze file only needs to be bronze
-  tier or better to file a bronze key, and can file a steel key too, as long as the
-  file's own tier is high enough.
+  you pick yourself or one of your groups as the key's target. A bronze file only
+  needs to be bronze tier or better to file a bronze key, and can file a steel key
+  too, as long as the file's own tier is high enough. Files wear down with use (real
+  durability, breaks when spent) but aren't consumed outright by a single filing.
 - **Keyrings.** A holdable container that accepts only keys — right-click it (with
   nothing targeted) to open its own inventory screen and manage its contents. Keys
   inside a keyring you're carrying anywhere in your inventory work exactly as if
@@ -32,6 +32,8 @@ member of the owning group.
 - **Metal variants matching lock materials**: bronze (any of the three real alloys),
   iron, meteoric iron, steel — for keys, key files, and metal keyrings alike. Keys
   also have an optional gem-studded finish, purely cosmetic.
+- **Ground-storable.** Keys, key files, and keyrings can all be placed on the ground
+  (shift+right-click) rather than only ever sitting in inventory or dropped loose.
 
 ## How it works, in practice
 
@@ -52,20 +54,21 @@ member of the owning group.
 ## Crafting
 
 - **Anvil smithing**: heat an ingot (bronze/iron/meteoric iron/steel), work it on the
-  anvil into a key or a key file. A bulk recipe produces 4 keys from one smithing
-  pass, using a bit under 2 ingots' worth of material rather than a full 4x cost.
+  anvil into a key, a key file, or a metal keyring. A bulk recipe produces 4 keys from
+  one smithing pass, using a bit under 2 ingots' worth of material rather than a full
+  4x cost.
 - **Casting**: shape clay into a key mold, fire it in a kiln, then pour molten metal
   from a crucible to cast a key — same reusable-mold pattern as vanilla ingot/tool
   molds (the mold survives the pour and can be reused). A bulk mold variant casts 4
   keys per pour.
 - **Gem-studding**: hammer + chisel + a cut gem + an already-forged/cast key of the
   matching metal produces the gem-studded variant. Purely cosmetic.
-- **Keyrings**: metal plates (bronze/iron/meteoric iron/steel) or rope, in a simple
-  grid recipe.
+- **Rope keyring**: rope, in a simple grid recipe (the only keyring that isn't
+  smithed).
 
 ## Configuration
 
-Written to `ModConfig/vslockandkey.json` on first run (per installation - the
+Written to `ModConfig/vslockandkey.json` on first run (per installation — the
 default only applies the first time; edit the file directly to change it later).
 
 | Option | Default | Meaning |
@@ -77,32 +80,37 @@ default only applies the first time; edit the file directly to change it later).
 | `LimitUnauthorisedUse` | `true` | If true, keys have finite durability that only drains on unauthorised use (see above). If false, keys never take damage. |
 | `KeyDurability` | `3` | Uses before an unauthorised-use key breaks, when `LimitUnauthorisedUse` is on. |
 | `GroupFilingRequiresOwnerOrOp` | `true` | If true, filing a key to a Group target requires the filer to hold Owner or Op rank in that group. |
+| `ShowKeyBindingInfo` | `true` | If true, key tooltips show their "Bound to: X" / "Not yet filed" line. |
 
 ## Status
 
-Actively in development, and under live in-game testing. Gameplay logic, recipes,
-config, and models/textures for keys, key files, keyrings, and key molds are all
-implemented and build cleanly. All six shapes are real modeled geometry (no
-placeholders remain), wired to real vanilla metal/clay/gem textures (no new art
-drawn), with hand/gui/ground orientation confirmed correct in-game. Not expected
-to be compatible with other mods that alter vanilla locking if both are installed
-together. The keyring's own inventory dialog is a right-click-to-open custom
-dialog backed by vanilla's own `InventoryGeneric`/container-slot networking (not
-the equip-slot-based `IHeldBag` system, which turned out not to work for a plain
-carried item — see `PLANNING.md` §8.1); the dialog's interactive plumbing
-(open/close, drag in/out) hasn't had a full in-game pass yet.
+Actively in development, under live in-game testing. Gameplay logic, recipes, config,
+and models/textures are all implemented and build cleanly (0 warnings) for both
+supported game versions. All six shapes are real modeled geometry, wired to real
+vanilla metal/clay/gem textures, with hand/GUI-icon/ground orientation confirmed
+correct in-game. Not expected to be compatible with other mods that alter vanilla
+locking if both are installed together.
+
+The keyring's own inventory dialog is a right-click-to-open custom dialog backed by
+vanilla's own `InventoryGeneric`/container-slot networking, not the equip-slot-based
+`IHeldBag` system (which doesn't work for a plain carried item — see `PLANNING.md`).
+Its interactive plumbing (open/close, drag in/out, concurrent sessions) hasn't had a
+full in-game pass yet. Ground-storage placement for keys/files/keyrings is likewise
+implemented but not yet visually confirmed in-game.
 
 See `PLANNING.md` for the full design brief, implementation notes, and known open
 items.
 
 ## Building
 
-Requires the .NET SDK and a Vintage Story install.
+Requires the .NET SDK and a Vintage Story install. Two game versions are supported
+from one shared `source/` tree — no conditional compilation, both `.csproj` files
+build the same code.
 
 1. Copy `Properties/localSettings.props.template` to `Properties/localSettings.props`
-   and set your game install path(s) — both `GameDirectory_1_22_5` and
-   `GameDirectory_1_21_5` are supported.
-2. Build for the game version you want (both are supported from the same source):
+   and set your game install path(s) — `GameDirectory_1_22_5` and/or
+   `GameDirectory_1_21_5`, whichever you're building for.
+2. Build:
 
 ```
 dotnet build VSLockAndKey_1.22.5.csproj                # VS 1.22.5, debug
@@ -126,13 +134,14 @@ ready for the mod portal.
 |---|---|
 | `source/` | C# source — config, Harmony patch, items, keyring inventory GUI/networking, filing GUI/networking |
 | `resources/assets/vslockandkey/` | Block/item types, recipes, lang, shapes |
-| `Directory.Build.props` | Mod identity - name, id, version, description, side, authors |
+| `Directory.Build.props` | Mod identity — name, id, version, description, side, authors |
 | `Common.Build.targets` | Shared build logic |
+| `VSLockAndKey_1.22.5.csproj` / `VSLockAndKey_1.21.5.csproj` | One per supported game version |
 | `deps/` | Vendored dependency DLLs, per game version |
 | `external/` | Ad-hoc DLLs, auto-referenced |
 
-`modinfo.json` is generated by the build from `Directory.Build.props`. Do not
-create one by hand.
+`modinfo.json` is generated by the build from `Directory.Build.props`. Do not create
+one by hand.
 
 ## Licence
 
