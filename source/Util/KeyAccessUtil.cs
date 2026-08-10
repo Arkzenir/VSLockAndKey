@@ -99,8 +99,14 @@ public static class KeyAccessUtil
 
         if (durability <= 0)
         {
-            // DestroyItem plays the break sound/particles and calls MarkDirty itself.
-            stack.Collectible.DestroyItem(byEntity.World, byEntity, keySlot);
+            // Vanilla's CollectibleObject.DestroyItem convenience method only exists from
+            // game version 1.22 onward - replicated manually (break sound, particles, clear
+            // the slot) so this keeps compiling unmodified against 1.21.5 too.
+            IPlayer player = (byEntity as EntityPlayer)?.Player;
+            byEntity.World.PlaySoundAt(new AssetLocation("sounds/effect/toolbreak"), byEntity, player);
+            byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ.Add(byEntity.SelectionBox.Y2 / 2), stack, 0.25f, 30, 1, player);
+            keySlot.Itemstack = null;
+            keySlot.MarkDirty();
             return;
         }
 

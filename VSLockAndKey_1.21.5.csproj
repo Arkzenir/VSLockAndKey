@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    VSLockAndKey - Vintage Story 1.21.5 build.
+      dotnet build VSLockAndKey_1.21.5.csproj
+      dotnet build VSLockAndKey_1.21.5.csproj -c Release   (also writes Releases/*.zip)
+  -->
+
+  <PropertyGroup>
+    <VSVersion>1.21.5</VSVersion>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Written into the generated modinfo.json -->
+  <ItemGroup>
+    <Dependencies Include="game" Version="&gt;=1.21.5" />
+    <!-- Add more: <Dependencies Include="somedep" Version="&gt;=1.0.0" /> -->
+  </ItemGroup>
+
+  <!--
+    Game path resolution, first non-empty wins:
+      1. GameDirectory_1_21_5 from Properties/localSettings.props
+      2. VINTAGE_STORY_1_21_5 environment variable
+      3. VINTAGE_STORY environment variable
+  -->
+  <PropertyGroup>
+    <GameDirectory Condition="'$(GameDirectory_1_21_5)' != ''">$(GameDirectory_1_21_5)</GameDirectory>
+    <GameDirectory Condition="'$(GameDirectory)' == '' and '$(VINTAGE_STORY_1_21_5)' != ''">$(VINTAGE_STORY_1_21_5)</GameDirectory>
+    <GameDirectory Condition="'$(GameDirectory)' == ''">$(VINTAGE_STORY)</GameDirectory>
+  </PropertyGroup>
+
+  <Import Project="Common.Build.targets" />
+
+</Project>

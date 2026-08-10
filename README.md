@@ -82,13 +82,15 @@ default only applies the first time; edit the file directly to change it later).
 
 Actively in development, and under live in-game testing. Gameplay logic, recipes,
 config, and models/textures for keys, key files, keyrings, and key molds are all
-implemented and build cleanly, wired to real vanilla metal/clay/gem textures (no
-new art drawn). Not expected to be compatible with other mods that alter vanilla
-locking if both are installed together. The keyring's own inventory dialog is a
-right-click-to-open custom dialog backed by vanilla's own `InventoryGeneric`/
-container-slot networking (not the equip-slot-based `IHeldBag` system, which
-turned out not to work for a plain carried item — see `PLANNING.md` §10) and
-hasn't completed a full in-game pass yet.
+implemented and build cleanly. All six shapes are real modeled geometry (no
+placeholders remain), wired to real vanilla metal/clay/gem textures (no new art
+drawn), with hand/gui/ground orientation confirmed correct in-game. Not expected
+to be compatible with other mods that alter vanilla locking if both are installed
+together. The keyring's own inventory dialog is a right-click-to-open custom
+dialog backed by vanilla's own `InventoryGeneric`/container-slot networking (not
+the equip-slot-based `IHeldBag` system, which turned out not to work for a plain
+carried item — see `PLANNING.md` §8.1); the dialog's interactive plumbing
+(open/close, drag in/out) hasn't had a full in-game pass yet.
 
 See `PLANNING.md` for the full design brief, implementation notes, and known open
 items.
@@ -98,28 +100,32 @@ items.
 Requires the .NET SDK and a Vintage Story install.
 
 1. Copy `Properties/localSettings.props.template` to `Properties/localSettings.props`
-   and set your game install path.
-2. Build:
+   and set your game install path(s) — both `GameDirectory_1_22_5` and
+   `GameDirectory_1_21_5` are supported.
+2. Build for the game version you want (both are supported from the same source):
 
 ```
-dotnet build VSLockAndKey_1.22.5.csproj                # debug
-dotnet build VSLockAndKey_1.22.5.csproj -c Release     # release + zip
+dotnet build VSLockAndKey_1.22.5.csproj                # VS 1.22.5, debug
+dotnet build VSLockAndKey_1.22.5.csproj -c Release     # VS 1.22.5, release + zip
+
+dotnet build VSLockAndKey_1.21.5.csproj                # VS 1.21.5, debug
+dotnet build VSLockAndKey_1.21.5.csproj -c Release     # VS 1.21.5, release + zip
 ```
 
-Debug output lands in `bin/Debug/1.22.5/Mods/vslockandkey/`. Add the `Mods/` folder
+Debug output lands in `bin/Debug/{version}/Mods/vslockandkey/`. Add the `Mods/` folder
 above it to the game's ModPaths for live asset reloading (JSON/texture/sound edits
 apply without rebuilding; C# changes and item/block registration changes like
 `storageFlags` need a restart or rejoin to take effect).
 
-Release output lands in `Releases/vslockandkey_<version>_vs1.22.5.zip`, ready for
-the mod portal.
+Release output lands in `Releases/vslockandkey_<version>_vs{1.22.5,1.21.5}.zip`,
+ready for the mod portal.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
 | `source/` | C# source — config, Harmony patch, items, keyring inventory GUI/networking, filing GUI/networking |
-| `resources/assets/vslockandkey/` | Block/item types, recipes, lang, placeholder shapes |
+| `resources/assets/vslockandkey/` | Block/item types, recipes, lang, shapes |
 | `Directory.Build.props` | Mod identity - name, id, version, description, side, authors |
 | `Common.Build.targets` | Shared build logic |
 | `deps/` | Vendored dependency DLLs, per game version |
