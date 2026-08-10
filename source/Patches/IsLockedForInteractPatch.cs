@@ -37,7 +37,7 @@ public static class IsLockedForInteractPatch
             return true;
         }
 
-        ItemSlot keySlot = KeyAccessUtil.FindMatchingKeySlot(forPlayer, bre);
+        ItemSlot? keySlot = KeyAccessUtil.FindMatchingKeySlot(forPlayer, bre);
         if (keySlot == null)
         {
             // No matching key: locked for interact regardless of what vanilla would say.

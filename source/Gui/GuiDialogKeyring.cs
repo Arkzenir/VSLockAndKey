@@ -54,7 +54,9 @@ public class GuiDialogKeyring : GuiDialogGeneric
 
     void OnTitleBarClose() => TryClose();
 
-    public override string ToggleKeyCombinationCode => null;
+    // Vanilla's own abstract declaration is non-nullable, but vanilla's own
+    // GuiDialogConfirm returns null here too - no toggle hotkey for this dialog.
+    public override string ToggleKeyCombinationCode => null!;
 
     public override void OnGuiClosed()
     {

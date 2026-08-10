@@ -57,7 +57,7 @@ public class GuiDialogKeyFile : GuiDialogGeneric
     public static void OpenFor(EntityAgent byEntity, ItemSlot keySlot)
     {
         if (byEntity.World.Api is not ICoreClientAPI capi) return;
-        IPlayer player = (byEntity as EntityPlayer)?.Player;
+        IPlayer? player = (byEntity as EntityPlayer)?.Player;
         if (player == null) return;
 
         List<string> values = new() { "player:" + player.PlayerUID };
@@ -79,7 +79,9 @@ public class GuiDialogKeyFile : GuiDialogGeneric
         new GuiDialogKeyFile(capi, values.ToArray(), names.ToArray()).TryOpen();
     }
 
-    public override string ToggleKeyCombinationCode => null;
+    // Vanilla's own abstract declaration is non-nullable, but vanilla's own
+    // GuiDialogConfirm returns null here too - no toggle hotkey for this dialog.
+    public override string ToggleKeyCombinationCode => null!;
 
     void OnTitleBarClose() => TryClose();
 

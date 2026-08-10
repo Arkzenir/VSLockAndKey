@@ -63,7 +63,7 @@ public class ItemKey : Item
 
         if (config != null && config.LimitUnauthorisedUse)
         {
-            int durability = inSlot.Itemstack.Attributes.GetInt(KeyAccessUtil.DurabilityAttr, config.KeyDurability);
+            int durability = inSlot.Itemstack!.Attributes.GetInt(KeyAccessUtil.DurabilityAttr, config.KeyDurability);
             dsc.AppendLine(Lang.Get("vslockandkey:key-durability", durability, config.KeyDurability));
         }
     }

@@ -32,7 +32,7 @@ public static class KeyAccessUtil
         return false;
     }
 
-    public static bool KeyMatchesLock(ItemStack keyStack, BlockReinforcement bre)
+    public static bool KeyMatchesLock(ItemStack? keyStack, BlockReinforcement bre)
     {
         if (keyStack?.Collectible is not ItemKey) return false;
 
@@ -51,7 +51,7 @@ public static class KeyAccessUtil
     /// Finds the first key slot (loose in inventory, or nested inside a keyring) that matches
     /// the given reinforcement. Keyrings are checked by contents, not as a single slot.
     /// </summary>
-    public static ItemSlot FindMatchingKeySlot(IPlayer player, BlockReinforcement bre)
+    public static ItemSlot? FindMatchingKeySlot(IPlayer player, BlockReinforcement bre)
     {
         ItemSlot? found = null;
 
@@ -70,9 +70,9 @@ public static class KeyAccessUtil
                 var contents = ItemKeyring.GetContents(slot.Itemstack);
                 for (int i = 0; i < contents.Length; i++)
                 {
-                    if (KeyMatchesLock(contents[i], bre))
+                    if (contents[i] is ItemStack candidate && KeyMatchesLock(candidate, bre))
                     {
-                        found = new KeyringContentRefSlot(slot, i, contents[i]);
+                        found = new KeyringContentRefSlot(slot, i, candidate);
                         return false;
                     }
                 }
@@ -91,7 +91,7 @@ public static class KeyAccessUtil
     /// </summary>
     public static void DamageKey(Entity byEntity, ItemSlot keySlot, ModConfig config)
     {
-        ItemStack stack = keySlot.Itemstack;
+        ItemStack? stack = keySlot.Itemstack;
         if (stack == null) return;
 
         int durability = stack.Attributes.GetInt(DurabilityAttr, config.KeyDurability);
@@ -102,7 +102,7 @@ public static class KeyAccessUtil
             // Vanilla's CollectibleObject.DestroyItem convenience method only exists from
             // game version 1.22 onward - replicated manually (break sound, particles, clear
             // the slot) so this keeps compiling unmodified against 1.21.5 too.
-            IPlayer player = (byEntity as EntityPlayer)?.Player;
+            IPlayer? player = (byEntity as EntityPlayer)?.Player;
             byEntity.World.PlaySoundAt(new AssetLocation("sounds/effect/toolbreak"), byEntity, player);
             byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ.Add(byEntity.SelectionBox.Y2 / 2), stack, 0.25f, 30, 1, player);
             keySlot.Itemstack = null;
@@ -135,7 +135,12 @@ public class KeyringContentRefSlot : ItemSlot
 
     public override void MarkDirty()
     {
-        ItemStack[] contents = ItemKeyring.GetContents(keyringSlot.Itemstack);
+        // The keyring itself may have been dropped, given away, or destroyed while this
+        // slot was still referenced (e.g. mid-lock-check) - if so, there's nothing left
+        // to write back to. Mirrors the same guard in KeyringGridSlot.Persist.
+        if (keyringSlot.Itemstack?.Collectible is not ItemKeyring) return;
+
+        var contents = ItemKeyring.GetContents(keyringSlot.Itemstack);
         contents[contentIndex] = itemstack;
         ItemKeyring.SetContents(keyringSlot.Itemstack, contents);
         keyringSlot.MarkDirty();
