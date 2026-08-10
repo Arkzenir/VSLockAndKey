@@ -81,15 +81,14 @@ default only applies the first time; edit the file directly to change it later).
 ## Status
 
 Actively in development, and under live in-game testing. Gameplay logic, recipes,
-and config are implemented and build cleanly; **models and textures for
-keys/files/keyrings/key molds are placeholders** (correctly named, no art yet)
-pending replacement. Not expected to be compatible with other mods that alter
-vanilla locking if both are installed together. The keyring's own inventory
-dialog is newly rebuilt (right-click to open, backed by vanilla's own
-`InventoryGeneric`/container-slot networking rather than the equip-slot-based
-`IHeldBag` system that turned out not to work for a plain carried item) and hasn't
-completed a full in-game pass yet — see `PLANNING.md` section 11 for the story on
-why it changed.
+config, and models/textures for keys, key files, keyrings, and key molds are all
+implemented and build cleanly, wired to real vanilla metal/clay/gem textures (no
+new art drawn). Not expected to be compatible with other mods that alter vanilla
+locking if both are installed together. The keyring's own inventory dialog is a
+right-click-to-open custom dialog backed by vanilla's own `InventoryGeneric`/
+container-slot networking (not the equip-slot-based `IHeldBag` system, which
+turned out not to work for a plain carried item — see `PLANNING.md` §10) and
+hasn't completed a full in-game pass yet.
 
 See `PLANNING.md` for the full design brief, implementation notes, and known open
 items.
