@@ -114,8 +114,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-E",
@@ -202,8 +201,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-Floor",
@@ -290,8 +288,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				}
 			]
 		},
@@ -398,8 +395,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-N",
@@ -486,8 +482,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-W2",
@@ -574,8 +569,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-W3",
@@ -662,8 +656,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-E2",
@@ -750,8 +743,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-E3",
@@ -838,8 +830,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-E3",
@@ -926,8 +917,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "Mold1-E3",
@@ -1014,8 +1004,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				}
 			]
 		}

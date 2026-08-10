@@ -115,8 +115,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "cube",
@@ -203,8 +202,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "cube",
@@ -291,8 +289,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "cube",
@@ -379,8 +376,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "cube",
@@ -468,8 +464,7 @@
 							"snapUv": false
 						}
 					},
-					"rotationX": 45,
-					"shade": false
+					"rotationX": 45
 				},
 				{
 					"name": "cube",
@@ -557,8 +552,7 @@
 							"snapUv": false
 						}
 					},
-					"rotationX": -45,
-					"shade": false
+					"rotationX": -45
 				},
 				{
 					"name": "cube",
@@ -646,8 +640,7 @@
 							"snapUv": false
 						}
 					},
-					"rotationX": 135,
-					"shade": false
+					"rotationX": 135
 				},
 				{
 					"name": "cube",
@@ -735,8 +728,7 @@
 							"snapUv": false
 						}
 					},
-					"rotationX": -135,
-					"shade": false
+					"rotationX": -135
 				}
 			]
 		},
@@ -844,8 +836,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				},
 				{
 					"name": "cube",
@@ -933,8 +924,7 @@
 							"snapUv": false
 						}
 					},
-					"rotationX": 90,
-					"shade": false
+					"rotationX": 90
 				},
 				{
 					"name": "cube",
@@ -1021,8 +1011,7 @@
 							"autoUv": false,
 							"snapUv": false
 						}
-					},
-					"shade": false
+					}
 				}
 			]
 		}
