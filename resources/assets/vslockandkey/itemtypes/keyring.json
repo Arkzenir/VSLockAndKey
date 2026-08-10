@@ -7,7 +7,7 @@
     { "code": "material", "states": ["rope", "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] }
   ],
   "texturesByType": {
-    "*-rope": { "material": { "base": "game:item/resource/fiber/flax" } },
+    "*-rope": { "material": { "base": "game:item/resource/rope" } },
     "*": { "material": { "base": "game:block/metal/ingot/{material}" } }
   },
   "attributesByType": {

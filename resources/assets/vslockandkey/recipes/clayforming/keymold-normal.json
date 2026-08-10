@@ -1,5 +1,5 @@
 {
-  "ingredient": { "type": "item", "code": "game:clay-*", "name": "type", "allowedVariants": ["blue", "fire", "red"] },
+  "ingredient": { "type": "item", "code": "game:clay-*", "name": "type", "allowedVariants": ["blue", "red"] },
   "pattern": [
     [
       "##############",
@@ -35,5 +35,5 @@
     ]
   ],
   "name": "Key Mold",
-  "output": { "type": "block", "code": "vslockandkey:keymold-raw-normal-north" }
+  "output": { "type": "block", "code": "vslockandkey:keymold-raw{type}-normal-north" }
 }

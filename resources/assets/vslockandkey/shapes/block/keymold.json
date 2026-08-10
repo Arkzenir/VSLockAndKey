@@ -1,6 +1,798 @@
 {
   "textureWidth": 16,
   "textureHeight": 16,
-  "textureSizes": {},
-  "elements": []
+  "textureSizes": {
+    "all": [
+      32,
+      32
+    ]
+  },
+  "textures": {
+    "all": "game:block/clay/blueclay"
+  },
+  "elements": [
+    {
+      "name": "Mold1-W",
+      "from": [
+        8,
+        0,
+        8
+      ],
+      "to": [
+        12,
+        2,
+        20
+      ],
+      "rotationOrigin": [
+        10,
+        0,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            5,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            12,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            5,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            12,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            5,
+            12
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            5,
+            12
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-E",
+      "from": [
+        16,
+        0,
+        8
+      ],
+      "to": [
+        20,
+        2,
+        20
+      ],
+      "rotationOrigin": [
+        10,
+        0,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            12,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            12,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            12
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            12
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-S",
+      "from": [
+        12,
+        0,
+        18
+      ],
+      "to": [
+        16,
+        2,
+        20
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-N",
+      "from": [
+        12,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        2,
+        10
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-Floor",
+      "from": [
+        12,
+        0,
+        10
+      ],
+      "to": [
+        16,
+        1,
+        18
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            7,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            7,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            7
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            3,
+            7
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-W2",
+      "from": [
+        13,
+        0,
+        11
+      ],
+      "to": [
+        15,
+        2,
+        12
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-W3",
+      "from": [
+        12,
+        0,
+        13
+      ],
+      "to": [
+        13,
+        2,
+        18
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-E2",
+      "from": [
+        14,
+        0,
+        13
+      ],
+      "to": [
+        16,
+        2,
+        16
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    },
+    {
+      "name": "Mold1-E3",
+      "from": [
+        14,
+        0,
+        16.5
+      ],
+      "to": [
+        16,
+        2,
+        17.5
+      ],
+      "rotationOrigin": [
+        9,
+        0,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            2
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "autoUv": false,
+          "snapUv": false
+        }
+      },
+      "shade": false
+    }
+  ]
 }
