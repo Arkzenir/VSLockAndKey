@@ -12,8 +12,6 @@
 
   <!-- Written into the generated modinfo.json -->
   <ItemGroup>
-    <Dependencies Include="game" Version="&gt;=1.21.5" />
-    <!-- Add more: <Dependencies Include="somedep" Version="&gt;=1.0.0" /> -->
   </ItemGroup>
 
   <!--

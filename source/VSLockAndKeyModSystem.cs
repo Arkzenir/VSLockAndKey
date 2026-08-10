@@ -152,6 +152,13 @@ public class VSLockAndKeyModSystem : ModSystem
         keySlot.Itemstack.Attributes.SetString(KeyAccessUtil.BoundNameAttr, packet.DisplayName);
         keySlot.Itemstack.Attributes.SetInt(KeyAccessUtil.DurabilityAttr, Config!.KeyDurability);
         keySlot.MarkDirty();
+
+        // Files aren't consumed by filing, but they do wear down like any other tool
+        // (durabilitybytype already declares their max durability - this is the only
+        // place that ever spends it). DamageItem breaks the file automatically once
+        // it hits zero (with the normal break sound/particles) and calls MarkDirty
+        // itself.
+        fileSlot.Itemstack.Collectible.DamageItem(fromPlayer.Entity.World, fromPlayer.Entity, fileSlot);
     }
 
     /// <summary>
