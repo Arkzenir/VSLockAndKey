@@ -50,10 +50,10 @@
 						"north": {
 							"texture": "#metal",
 							"uv": [
-								18.5,
-								10.5,
-								19,
-								11
+								6.037,
+								9.804,
+								6.537,
+								10.804
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -61,10 +61,10 @@
 						"east": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.5,
-								22,
-								11
+								3.401,
+								5.929,
+								8.401,
+								6.929
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -72,10 +72,10 @@
 						"south": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.5,
-								17.5,
-								11
+								8.225,
+								8.376,
+								8.725,
+								9.376
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -83,10 +83,10 @@
 						"west": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.5,
-								22,
-								11
+								4.176,
+								5.599,
+								9.176,
+								6.599
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -94,10 +94,10 @@
 						"up": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								9,
-								17.5,
-								14
+								9.701,
+								4.231,
+								10.201,
+								9.231
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -105,10 +105,10 @@
 						"down": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								9,
-								17.5,
-								14
+								8.223,
+								6.097,
+								8.723,
+								11.097
 							],
 							"rotation": 180,
 							"autoUv": false,
@@ -137,10 +137,10 @@
 						"north": {
 							"texture": "#metal",
 							"uv": [
-								18.5,
-								10.5,
-								19,
-								11
+								7.346,
+								8.168,
+								7.846,
+								8.668
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -148,10 +148,10 @@
 						"east": {
 							"texture": "#metal",
 							"uv": [
-								18,
-								10.5,
-								19,
-								11
+								7.614,
+								9.924,
+								8.614,
+								10.424
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -159,10 +159,10 @@
 						"south": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.5,
-								17.5,
-								11
+								6.271,
+								8.831,
+								6.771,
+								9.331
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -170,10 +170,10 @@
 						"west": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.5,
-								18,
-								11
+								6.193,
+								7.229,
+								7.193,
+								7.729
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -181,10 +181,10 @@
 						"up": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								9,
-								17.5,
-								10
+								8.608,
+								6.5,
+								9.108,
+								7.5
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -192,10 +192,10 @@
 						"down": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10,
-								17.5,
-								11
+								6.831,
+								8.759,
+								7.331,
+								9.759
 							],
 							"rotation": 180,
 							"autoUv": false,
@@ -224,10 +224,10 @@
 						"north": {
 							"texture": "#metal",
 							"uv": [
-								18.75,
-								10.75,
-								19,
-								11
+								5.738,
+								7.666,
+								5.988,
+								7.916
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -235,10 +235,10 @@
 						"east": {
 							"texture": "#metal",
 							"uv": [
-								18,
-								10.75,
-								19,
-								11
+								9.992,
+								10.355,
+								10.992,
+								10.605
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -246,10 +246,10 @@
 						"south": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.75,
-								17.25,
-								11
+								5.741,
+								6.441,
+								5.991,
+								6.691
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -257,10 +257,10 @@
 						"west": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10.75,
-								18,
-								11
+								6.326,
+								10.041,
+								7.326,
+								10.291
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -268,10 +268,10 @@
 						"up": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								9,
-								17.25,
-								10
+								9.779,
+								9.396,
+								10.029,
+								10.396
 							],
 							"autoUv": false,
 							"snapUv": false
@@ -279,10 +279,10 @@
 						"down": {
 							"texture": "#metal",
 							"uv": [
-								17,
-								10,
-								17.25,
-								11
+								7.223,
+								5.789,
+								7.473,
+								6.789
 							],
 							"rotation": 180,
 							"autoUv": false,
