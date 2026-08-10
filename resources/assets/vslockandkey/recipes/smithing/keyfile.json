@@ -2,9 +2,9 @@
   "ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] },
   "name": "Key File",
   "pattern": [[
-    "################",
-    "#______#_______#",
-    "################"
+    "___#######______",
+    "___###########__",
+    "___#######______"
   ]],
   "output": { "type": "item", "code": "vslockandkey:keyfile-{metal}" }
 }

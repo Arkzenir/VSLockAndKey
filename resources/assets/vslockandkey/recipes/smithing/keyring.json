@@ -1,0 +1,16 @@
+{
+  "ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] },
+  "name": "Keyring",
+  "pattern": [[
+    "_#####_",
+    "#_____#",
+    "#_____#",
+    "#_____#",
+    "#_____#",
+    "#_____#",
+    "_#####_",
+	"__#_#__",
+	"___#___"
+  ]],
+  "output": { "type": "item", "code": "vslockandkey:keyring-{metal}" }
+}

@@ -1,10 +1,17 @@
 {
   "ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": ["tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"] },
   "name": "Key",
-  "pattern": [[
-    "___###_________",
-    "___#_######____",
-    "___###__#_#____"
-  ]],
+  "pattern": [
+  [
+    "_________###____",
+    "___#######_#____",
+    "___#_#___###____"
+  ],
+  [
+    "_________###____",
+    "___#######_#____",
+    "___#_#___###____"
+  ]
+  ],
   "output": { "type": "item", "code": "vslockandkey:key-{metal}" }
 }
