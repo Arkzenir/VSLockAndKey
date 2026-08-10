@@ -97,7 +97,7 @@
     "groundStorageTransform": {
       "translation": {
         "x": 0,
-        "y": 0.05,
+        "y": 0.02,
         "z": 0
       },
       "rotation": {
@@ -134,7 +134,7 @@
   "groundTransform": {
     "translation": {
       "x": 0,
-      "y": 0.05,
+      "y": 0.02,
       "z": 0
     },
     "rotation": {
