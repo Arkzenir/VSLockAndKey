@@ -57,6 +57,17 @@ public class VSLockAndKeyModSystem : ModSystem
                 api.Logger.Notification($"[VSLockAndKey] No config found, wrote defaults to {ConfigFileName}.");
             }
 
+            // A hand-edited config that explicitly empties KeyringSlotsByMaterial (as
+            // opposed to just omitting it, which deserialization already leaves at its
+            // field-initializer default) would otherwise leave every keyring falling
+            // back to DefaultKeyringSlots regardless of material - almost certainly not
+            // the intent, so treat "present but empty" the same as "absent".
+            if (config.KeyringSlotsByMaterial == null || config.KeyringSlotsByMaterial.Count == 0)
+            {
+                config.KeyringSlotsByMaterial = ModConfig.DefaultKeyringSlotsByMaterial();
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s KeyringSlotsByMaterial was empty - using built-in defaults.");
+            }
+
             Config = config;
             api.World.Config.SetString(WorldConfigKey, JsonConvert.SerializeObject(config));
         }
