@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using HarmonyLib;
 using Newtonsoft.Json;
 using Vintagestory.API.Client;
@@ -57,13 +59,41 @@ public class VSLockAndKeyModSystem : ModSystem
                 api.Logger.Notification($"[VSLockAndKey] No config found, wrote defaults to {ConfigFileName}.");
             }
 
+            // A hand-edited config that explicitly empties KeyringSlotsByMaterial (as
+            // opposed to just omitting it, which deserialization already leaves at its
+            // field-initializer default) would otherwise leave every keyring falling
+            // back to DefaultKeyringSlots regardless of material - almost certainly not
+            // the intent, so treat "present but empty" the same as "absent".
+            if (config.KeyringSlotsByMaterial == null || config.KeyringSlotsByMaterial.Count == 0)
+            {
+                config.KeyringSlotsByMaterial = ModConfig.DefaultKeyringSlotsByMaterial();
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s KeyringSlotsByMaterial was empty - using built-in defaults.");
+            }
+
             Config = config;
-            api.World.Config.SetString(WorldConfigKey, JsonConvert.SerializeObject(config));
+
+            // world.Config's underlying StringAttribute does not escape correctly when
+            // the engine converts it to a JToken (e.g. when the main menu's "Modify
+            // World" screen re-parses the whole world config as one JSON document) -
+            // storing our own raw JSON directly under this key corrupts that outer
+            // parse. Base64-encoding sidesteps it entirely; same fix examples/Thievery's
+            // ConfigManager uses for the identical problem.
+            string serialized = JsonConvert.SerializeObject(config);
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized));
+            api.World.Config.SetString(WorldConfigKey, encoded);
         }
         else
         {
-            string json = api.World.Config.GetString(WorldConfigKey);
-            Config = string.IsNullOrEmpty(json) ? new ModConfig() : JsonConvert.DeserializeObject<ModConfig>(json);
+            string encoded = api.World.Config.GetString(WorldConfigKey);
+            if (string.IsNullOrEmpty(encoded))
+            {
+                Config = new ModConfig();
+            }
+            else
+            {
+                string json = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+                Config = JsonConvert.DeserializeObject<ModConfig>(json);
+            }
         }
     }
 
