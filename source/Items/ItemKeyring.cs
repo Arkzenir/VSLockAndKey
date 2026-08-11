@@ -37,12 +37,7 @@ public class ItemKeyring : Item
 
     public static ItemStack?[] GetContents(ItemStack keyringStack, IWorldAccessor? world = null)
     {
-        ModConfig? config = VSLockAndKeyModSystem.Config;
-        string material = keyringStack.Collectible.Variant["material"];
-        int slots = config != null && config.KeyringSlotsByMaterial.TryGetValue(material, out int configured)
-            ? configured
-            : config?.DefaultKeyringSlots ?? 4;
-
+        int slots = keyringStack.Collectible.Attributes?["keyringSlots"].AsInt(4) ?? 4;
         ItemStack?[] stacks = new ItemStack?[slots];
 
         ITreeAttribute? tree = keyringStack.Attributes.GetTreeAttribute(ContentsAttr);
