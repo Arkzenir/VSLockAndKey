@@ -4,7 +4,7 @@ namespace VSLockAndKey;
 
 public class ModConfig
 {
-    public bool AdminBypassKeyRequirement = true;
+    public bool AdminBypassKeyRequirement = false;
 
     public List<string> ExemptPlayerUids = new();
 
