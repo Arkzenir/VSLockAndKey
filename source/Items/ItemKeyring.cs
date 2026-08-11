@@ -43,6 +43,11 @@ public class ItemKeyring : Item
             ? configured
             : config?.DefaultKeyringSlots ?? 4;
 
+        // StartPre already clamps negative config values to 0, but this is called far
+        // more often than that guard runs - defend here too rather than assume every
+        // caller went through it.
+        if (slots < 0) slots = 0;
+
         ItemStack?[] stacks = new ItemStack?[slots];
 
         ITreeAttribute? tree = keyringStack.Attributes.GetTreeAttribute(ContentsAttr);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -70,6 +71,54 @@ public class VSLockAndKeyModSystem : ModSystem
                 api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s KeyringSlotsByMaterial was empty - using built-in defaults.");
             }
 
+            // A slot count becomes the array length ItemKeyring.GetContents allocates -
+            // a negative value would throw there. Rather than treating <= 0 as
+            // malformed, it's honored as an intentional "disable this keyring type":
+            // clamped to exactly 0 (never left negative), which GetContents/
+            // GuiDialogKeyring both handle explicitly (an empty dialog instead of a
+            // slot grid) rather than crashing on it.
+            if (config.DefaultKeyringSlots < 0)
+            {
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s DefaultKeyringSlots ({config.DefaultKeyringSlots}) is negative - clamping to 0 (disabled).");
+                config.DefaultKeyringSlots = 0;
+            }
+
+            foreach (string material in new List<string>(config.KeyringSlotsByMaterial.Keys))
+            {
+                if (config.KeyringSlotsByMaterial[material] < 0)
+                {
+                    api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s KeyringSlotsByMaterial[\"{material}\"] ({config.KeyringSlotsByMaterial[material]}) is negative - clamping to 0 (disabled).");
+                    config.KeyringSlotsByMaterial[material] = 0;
+                }
+            }
+
+            // ExemptPlayerUids/ExemptGroupNames are read via .Contains()/.Count in
+            // KeyAccessUtil.IsOwnerExempt on every locked-block interaction (the
+            // Harmony patch calls it unconditionally) - a config that explicitly sets
+            // either to JSON null (same "present but null" case as
+            // KeyringSlotsByMaterial above, just previously unguarded here) would
+            // otherwise NullReferenceException on the very next lock check.
+            if (config.ExemptPlayerUids == null)
+            {
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s ExemptPlayerUids was null - using an empty list.");
+                config.ExemptPlayerUids = new List<string>();
+            }
+
+            if (config.ExemptGroupNames == null)
+            {
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s ExemptGroupNames was null - using an empty list.");
+                config.ExemptGroupNames = new List<string>();
+            }
+
+            // AdminBypassPrivilege is passed straight to IPlayer.HasPrivilege, whose
+            // null-handling isn't visible from the API surface (closed-source
+            // implementation) - safer to not find out the hard way.
+            if (string.IsNullOrEmpty(config.AdminBypassPrivilege))
+            {
+                api.Logger.Warning($"[VSLockAndKey] {ConfigFileName}'s AdminBypassPrivilege was empty - using \"commandplayer\".");
+                config.AdminBypassPrivilege = "commandplayer";
+            }
+
             Config = config;
 
             // world.Config's underlying StringAttribute does not escape correctly when
@@ -91,8 +140,21 @@ public class VSLockAndKeyModSystem : ModSystem
             }
             else
             {
-                string json = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
-                Config = JsonConvert.DeserializeObject<ModConfig>(json);
+                try
+                {
+                    string json = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+                    Config = JsonConvert.DeserializeObject<ModConfig>(json) ?? new ModConfig();
+                }
+                catch (Exception ex)
+                {
+                    // The server always writes a fresh, valid value before any client can
+                    // read it, so this should never actually trigger - but an uncaught
+                    // exception here would crash the client mid-join, so treat a decode
+                    // failure the same as "nothing synced yet" instead of taking the
+                    // client down over what only ever gates cosmetic tooltip text.
+                    api.Logger.Warning($"[VSLockAndKey] Failed to decode synced config, using defaults: {ex.Message}");
+                    Config = new ModConfig();
+                }
             }
         }
     }

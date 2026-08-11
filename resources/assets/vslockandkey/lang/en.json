@@ -127,6 +127,8 @@
   "vslockandkey:keyfile-label": "Bind this key to:",
   "vslockandkey:common-confirm": "Confirm",
 
+  "vslockandkey:keyring-disabled": "This keyring has no storage capacity.",
+
   "ingameerror-vslockandkey-locked": "This is locked, and you don't have the key.",
 
   "blockhelp-vslockandkey-keyfile": "Hold a key in your main hand and a key file in your offhand to bind the key"

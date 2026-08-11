@@ -1,6 +1,7 @@
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 
 namespace VSLockAndKey.Gui;
 
@@ -20,6 +21,29 @@ public class GuiDialogKeyring : GuiDialogGeneric
     public GuiDialogKeyring(string dialogTitle, InventoryGeneric inventory, ICoreClientAPI capi) : base(dialogTitle, capi)
     {
         this.inventory = inventory;
+
+        if (inventory.Count == 0)
+        {
+            // A material configured with 0 (or a negative, clamped to 0) capacity is
+            // treated as an intentionally disabled keyring type rather than falling
+            // back to a working default - AddItemSlotGrid/ElementStdBounds.SlotGrid
+            // have no sensible layout for a 0-column grid (cols=0 makes the row-count
+            // math below divide by zero), so show an explanatory empty dialog instead.
+            ElementBounds disabledLabel = ElementBounds.Fixed(0, GuiStyle.TitleBarHeight, 300, 30);
+            ElementBounds disabledBgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
+            disabledBgBounds.BothSizing = ElementSizing.FitToChildren;
+            ElementBounds disabledDialogBounds = ElementStdBounds.AutosizedMainDialog.WithAlignment(EnumDialogArea.CenterMiddle);
+
+            SingleComposer = capi.Gui
+                .CreateCompo("vslockandkey-keyring", disabledDialogBounds)
+                .AddShadedDialogBG(disabledBgBounds, true)
+                .AddDialogTitleBar(dialogTitle, OnTitleBarClose)
+                .BeginChildElements(disabledBgBounds)
+                    .AddStaticText(Lang.Get("vslockandkey:keyring-disabled"), CairoFont.WhiteDetailText(), disabledLabel)
+                .EndChildElements()
+                .Compose();
+            return;
+        }
 
         int cols = Math.Min(inventory.Count, 6);
         int rows = (int)Math.Ceiling(inventory.Count / (float)cols);
