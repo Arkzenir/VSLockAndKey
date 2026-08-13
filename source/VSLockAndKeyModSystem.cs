@@ -211,10 +211,6 @@ public class VSLockAndKeyModSystem : ModSystem
         if (keySlot?.Itemstack?.Collectible is not ItemKey) return;
         if (fileSlot?.Itemstack?.Collectible is not ItemKeyFile) return;
 
-        string keyMetal = keySlot.Itemstack.Collectible.Variant["metal"];
-        string fileMetal = fileSlot.Itemstack.Collectible.Variant["metal"];
-        if (!MetalTier.IsAtLeast(fileMetal, keyMetal)) return;
-
         if (packet.IsGroup)
         {
             if (Config!.GroupFilingRequiresOwnerOrOp)

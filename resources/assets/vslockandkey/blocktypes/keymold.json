@@ -80,7 +80,7 @@
   "blockmaterial": "Ceramic",
   "creativeinventory": {
     "general": ["*-north"],
-    "construction": ["*-north"]
+    "vslockandkey": ["*-north"]
   },
   "replaceable": 700,
   "resistance": 1.5,

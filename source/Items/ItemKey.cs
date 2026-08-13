@@ -19,18 +19,12 @@ public class ItemKey : Item
             ItemSlot offhandSlot = byEntity.LeftHandItemSlot;
             if (offhandSlot?.Itemstack?.Collectible is ItemKeyFile && slot.Itemstack != null)
             {
-                string keyMetal = slot.Itemstack.Collectible.Variant["metal"];
-                string fileMetal = offhandSlot.Itemstack!.Collectible.Variant["metal"];
-
-                if (MetalTier.IsAtLeast(fileMetal, keyMetal))
+                handling = EnumHandHandling.PreventDefault;
+                if (byEntity.World.Api.Side == EnumAppSide.Client)
                 {
-                    handling = EnumHandHandling.PreventDefault;
-                    if (byEntity.World.Api.Side == EnumAppSide.Client)
-                    {
-                        GuiDialogKeyFile.OpenFor(byEntity, slot);
-                    }
-                    return;
+                    GuiDialogKeyFile.OpenFor(byEntity, slot);
                 }
+                return;
             }
         }
 

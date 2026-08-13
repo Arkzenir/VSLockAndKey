@@ -45,7 +45,7 @@
     "general": [
       "*"
     ],
-    "items": [
+    "vslockandkey": [
       "*"
     ]
   },
@@ -71,12 +71,12 @@
   },
   "storageFlags": 257,
   "durabilitybytype": {
-    "*-tinbronze": 100,
-    "*-bismuthbronze": 100,
-    "*-blackbronze": 100,
-    "*-iron": 200,
-    "*-meteoriciron": 300,
-    "*-steel": 400
+    "*-tinbronze": 6,
+    "*-bismuthbronze": 6,
+    "*-blackbronze": 6,
+    "*-iron": 15,
+    "*-meteoriciron": 30,
+    "*-steel": 50
   },
   "guiTransform": {
     "translation": {

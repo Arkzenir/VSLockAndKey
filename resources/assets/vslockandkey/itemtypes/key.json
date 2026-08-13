@@ -25,12 +25,25 @@
     {
       "code": "metal",
       "states": [
-        "tinbronze",
+        "bismuth",
         "bismuthbronze",
         "blackbronze",
+        "brass",
+        "chromium",
+        "copper",
+        "electrum",
+        "gold",
         "iron",
+        "lead",
         "meteoriciron",
-        "steel"
+        "molybdochalkos",
+        "platinum",
+        "silver",
+        "steel",
+        "tin",
+        "tinbronze",
+        "titanium",
+        "zinc"
       ]
     }
   ],
@@ -45,7 +58,7 @@
     "general": [
       "*"
     ],
-    "items": [
+    "vslockandkey": [
       "*"
     ]
   },

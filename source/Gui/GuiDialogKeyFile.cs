@@ -10,8 +10,8 @@ namespace VSLockAndKey.Gui;
 /// <summary>
 /// Filing dialog: dropdown of the player's own name plus every group they belong to,
 /// and a Confirm button. The server (BindKeyPacket handler in VSLockAndKeyModSystem)
-/// re-validates file tier and group-filing rules before actually binding the key -
-/// this dialog only builds the selection UI.
+/// re-validates group-filing rules before actually binding the key - this dialog
+/// only builds the selection UI.
 /// </summary>
 public class GuiDialogKeyFile : GuiDialogGeneric
 {

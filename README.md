@@ -17,21 +17,27 @@ member of the owning group.
 - **Optional durability penalty for unauthorised use.** Keys can have limited
   durability that only drains when used by someone who *isn't* the lock's actual
   owner/group member — legitimate use never wears a key down.
-- **Key Files, for binding keys to a target.** Hold a key in your main hand and a key
-  file of equal-or-higher metal tier in your offhand to open a binding dialog, where
-  you pick yourself or one of your groups as the key's target. A bronze file only
-  needs to be bronze tier or better to file a bronze key, and can file a steel key
-  too, as long as the file's own tier is high enough. Files wear down with use (real
-  durability, breaks when spent) but aren't consumed outright by a single filing.
+- **Key Files, for binding keys to a target.** Hold a key in your main hand and any
+  key file in your offhand to open a binding dialog, where you pick yourself or one
+  of your groups as the key's target — a file's metal has no bearing on which keys
+  it can bind. Files wear down with use instead (real durability, breaks when
+  spent, but isn't consumed outright by a single filing), and wear down fast at the
+  cheap end: a bronze file is only good for a handful of bindings before it breaks,
+  while a steel one lasts for dozens. Filing a lot of keys at once is where a better
+  file actually pays for itself.
 - **Keyrings.** A holdable container that accepts only keys — right-click it (with
   nothing targeted) to open its own inventory screen and manage its contents. Keys
   inside a keyring you're carrying anywhere in your inventory work exactly as if
   they were loose, whether or not the keyring's screen is currently open. Capacity
-  scales with the keyring's material.
+  scales with the keyring's material, and is configurable per-server — see below.
 - **Admin bypass and per-lock exemptions**, configurable — see below.
-- **Metal variants matching lock materials**: bronze (any of the three real alloys),
-  iron, meteoric iron, steel — for keys, key files, and metal keyrings alike. Keys
-  also have an optional gem-studded finish, purely cosmetic.
+- **Metal variants.** Key Files and metal Keyrings come in bronze (any of the three
+  real alloys), iron, meteoric iron, or steel, matching lock materials. Keys (and
+  jeweled keys) aren't tier-gated against locks or files, so they're available in
+  the full range of vanilla ingot metals instead — copper, brass, bronze, silver,
+  gold, iron, lead, tin, zinc, bismuth, chromium, electrum, platinum, titanium,
+  molybdochalkos, meteoric iron, and steel — purely a matter of taste. Keys also
+  have an optional gem-studded finish, purely cosmetic.
 - **Ground-storable.** Keys, key files, and keyrings can all be placed on the ground
   (shift+right-click) rather than only ever sitting in inventory or dropped loose.
 
@@ -40,9 +46,9 @@ member of the owning group.
 1. **Lock a block as normal.** Vanilla reinforcement/locking is untouched — reinforce
    and lock to yourself or to a group exactly like you always have.
 2. **Forge or cast a key** of any metal (see Crafting below), then **file it** to
-   the player or group the lock belongs to: hold the key in your main hand, a
-   sufficient-tier key file in your offhand, right-click in the air, pick a target
-   from the dropdown, confirm.
+   the player or group the lock belongs to: hold the key in your main hand, any
+   key file in your offhand, right-click in the air, pick a target from the
+   dropdown, confirm.
 3. **Carry the filed key** (loose in inventory, or inside a keyring you're carrying
    — right-click the keyring to open it and drop keys in) whenever you want to open
    that lock. Without it, even the lock's owner is turned away.
@@ -53,14 +59,15 @@ member of the owning group.
 
 ## Crafting
 
-- **Anvil smithing**: heat an ingot (bronze/iron/meteoric iron/steel), work it on the
-  anvil into a key, a key file, or a metal keyring. A bulk recipe produces 4 keys from
+- **Anvil smithing**: heat an ingot, work it on the anvil into a key, a key file, or a
+  metal keyring. Keys accept any vanilla ingot metal; key files and metal keyrings
+  are limited to bronze/iron/meteoric iron/steel. A bulk recipe produces 4 keys from
   one smithing pass, using a bit under 2 ingots' worth of material rather than a full
   4x cost.
 - **Casting**: shape clay into a key mold, fire it in a kiln, then pour molten metal
-  from a crucible to cast a key — same reusable-mold pattern as vanilla ingot/tool
-  molds (the mold survives the pour and can be reused). A bulk mold variant casts 4
-  keys per pour.
+  from a crucible to cast a key (any metal) — same reusable-mold pattern as vanilla
+  ingot/tool molds (the mold survives the pour and can be reused). A bulk mold
+  variant casts 4 keys per pour.
 - **Gem-studding**: hammer + chisel + a cut gem + an already-forged/cast key of the
   matching metal produces the gem-studded variant. Purely cosmetic.
 - **Rope keyring**: rope, in a simple grid recipe (the only keyring that isn't
@@ -73,7 +80,7 @@ default only applies the first time; edit the file directly to change it later).
 
 | Option | Default | Meaning |
 |---|---|---|
-| `AdminBypassKeyRequirement` | `true` | Players with the `commandplayer` privilege skip the *key* requirement — they still need normal vanilla owner/group access to the lock itself. |
+| `AdminBypassKeyRequirement` | `false` | Players with the `commandplayer` privilege skip the *key* requirement — they still need normal vanilla owner/group access to the lock itself. |
 | `AdminBypassPrivilege` | `commandplayer` | Which privilege counts as "admin" for the bypass above. |
 | `ExemptPlayerUids` | *(empty)* | Player UIDs whose own locks never require a key. |
 | `ExemptGroupNames` | *(empty)* | Group names whose locks never require a key. |
@@ -81,6 +88,27 @@ default only applies the first time; edit the file directly to change it later).
 | `KeyDurability` | `3` | Uses before an unauthorised-use key breaks, when `LimitUnauthorisedUse` is on. |
 | `GroupFilingRequiresOwnerOrOp` | `true` | If true, filing a key to a Group target requires the filer to hold Owner or Op rank in that group. |
 | `ShowKeyBindingInfo` | `true` | If true, key tooltips show their "Bound to: X" / "Not yet filed" line. |
+| `KeyringSlotsByMaterial` | rope=2, bronze (any alloy)=3, iron=4, meteoriciron=5, steel=6 | Keyring capacity per material. Shrinking a value doesn't delete anything already stored past the new limit — it just becomes inaccessible until raised again. Set a material to `0` to disable that keyring type entirely (opens an empty dialog with no storage). |
+| `DefaultKeyringSlots` | `4` | Fallback capacity for any material not listed above. Also settable to `0` to disable unlisted materials by default. |
+
+## Status
+
+Actively in development, under live in-game testing. Gameplay logic, recipes, config,
+and models/textures are all implemented and build cleanly (0 warnings) for both
+supported game versions. All six shapes are real modeled geometry, wired to real
+vanilla metal/clay/gem textures, with hand/GUI-icon/ground orientation confirmed
+correct in-game. Not expected to be compatible with other mods that alter vanilla
+locking if both are installed together.
+
+The keyring's own inventory dialog is a right-click-to-open custom dialog backed by
+vanilla's own `InventoryGeneric`/container-slot networking, not the equip-slot-based
+`IHeldBag` system (which doesn't work for a plain carried item — see `PLANNING.md`).
+Its interactive plumbing (open/close, drag in/out, concurrent sessions) hasn't had a
+full in-game pass yet. Ground-storage placement for keys/files/keyrings is likewise
+implemented but not yet visually confirmed in-game.
+
+See `PLANNING.md` for the full design brief, implementation notes, and known open
+items.
 
 ## Building
 
@@ -123,3 +151,7 @@ ready for the mod portal.
 
 `modinfo.json` is generated by the build from `Directory.Build.props`. Do not create
 one by hand.
+
+## Licence
+
+Add your licence here.

@@ -25,12 +25,25 @@
     {
       "code": "metal",
       "states": [
-        "tinbronze",
+        "bismuth",
         "bismuthbronze",
         "blackbronze",
+        "brass",
+        "chromium",
+        "copper",
+        "electrum",
+        "gold",
         "iron",
+        "lead",
         "meteoriciron",
-        "steel"
+        "molybdochalkos",
+        "platinum",
+        "silver",
+        "steel",
+        "tin",
+        "tinbronze",
+        "titanium",
+        "zinc"
       ]
     },
     {
@@ -42,12 +55,12 @@
         "emerald",
         "lapislazuli",
         "malachite",
+        "olivine",
         "onyx",
         "quartz",
         "rosequartz",
         "ruby",
-        "turquoise",
-        "olivine"
+        "turquoise"
       ]
     }
   ],
@@ -89,7 +102,7 @@
     "general": [
       "*"
     ],
-    "items": [
+    "vslockandkey": [
       "*"
     ]
   },
