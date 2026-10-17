@@ -82,7 +82,7 @@
   <Target Name="LinkAssets" AfterTargets="GenerateModInfo" BeforeTargets="Build">
     <RemoveDir Directories="$(OutputPath)/assets" />
     <Exec Condition="'$(OS)' == 'Windows_NT'"
-          Command="mklink /D &quot;$(OutputPath)\assets&quot; &quot;$(AssetsDir)&quot;" />
+          Command="mklink /J &quot;$(OutputPath)\assets&quot; &quot;$(AssetsDir)&quot;" />
     <Exec Condition="'$(OS)' != 'Windows_NT'"
           Command="ln -sf &quot;$(AssetsDir)&quot; &quot;$(OutputPath)/assets&quot;" />
   </Target>

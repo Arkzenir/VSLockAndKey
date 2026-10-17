@@ -173,6 +173,19 @@ public class VSLockAndKeyModSystem : ModSystem
             .RegisterMessageType<OpenKeyringPacket>()
             .RegisterMessageType<KeyringContentsPacket>();
 
+        // Patched on both sides, not just the server: BlockBehaviorLockable also runs
+        // IsLockedForInteract client-side to decide whether to predict the interaction.
+        // With a server-only patch, a dedicated-server client fell back to vanilla's
+        // check, which lets group members through, so it opened gates/doors locally
+        // (walk-through collision) while the server refused and kept them closed.
+        // In singleplayer both sides share one process and one patched method, so
+        // only the first side to get here applies the patch.
+        if (!Harmony.HasAnyPatches(HarmonyId))
+        {
+            harmony = new Harmony(HarmonyId);
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
+
         api.Logger.Debug("[VSLockAndKey] Mod loaded.");
     }
 
@@ -189,9 +202,6 @@ public class VSLockAndKeyModSystem : ModSystem
         base.StartServerSide(api);
         sapi = api;
 
-        harmony = new Harmony(HarmonyId);
-        harmony.PatchAll(Assembly.GetExecutingAssembly());
-
         api.Network.GetChannel(NetworkChannelId)
             .SetMessageHandler<BindKeyPacket>(OnBindKeyPacket)
             .SetMessageHandler<OpenKeyringPacket>(OnOpenKeyringPacket);
@@ -199,6 +209,8 @@ public class VSLockAndKeyModSystem : ModSystem
 
     public override void Dispose()
     {
+        // Only the instance that applied the patch removes it (harmony stays null on
+        // the side that found it already applied).
         harmony?.UnpatchAll(HarmonyId);
         base.Dispose();
     }

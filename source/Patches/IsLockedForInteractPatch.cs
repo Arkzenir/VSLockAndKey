@@ -45,12 +45,10 @@ public static class IsLockedForInteractPatch
             return false;
         }
 
-        // Harmony patches a physical method, not a "side" - in singleplayer the client's
-        // predictive call and the server's authoritative call go through this same
-        // patched method in the same process, so without this check a single interact
-        // would damage the key twice. On dedicated multiplayer this patch only ever
-        // runs server-side to begin with (see VSLockAndKeyModSystem.StartServerSide),
-        // so the check is a no-op there, but it's required for singleplayer correctness.
+        // This patch runs on both sides (see VSLockAndKeyModSystem.Start): the client's
+        // predictive call must reach the same verdict as the server or the client
+        // opens a door the server keeps shut. Only the server's authoritative call may
+        // damage the key, otherwise a single interact would damage it twice.
         if (config.LimitUnauthorisedUse && !KeyAccessUtil.IsAuthorized(bre, forPlayer)
             && forPlayer.Entity.World.Side == EnumAppSide.Server)
         {
